@@ -3,111 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulador de Descuento ✨</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>Calculadora de Proyección de Mercado</title>
+    <!-- Carga de Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#007BFF', // Azul vibrante
+                        'primary-dark': '#0056b3',
+                        'bg-light': '#f4f7f9',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
     <style>
-        :root {
-            /* Definición de variables de color para fácil manejo */
-            --primary-color: #2ECC71; /* Un verde vibrante */
-            --secondary-color: #27AE60;
-            --background-color: #ECF0F1; /* Gris claro */
-            --text-color: #34495E; /* Azul oscuro para texto */
-            --card-background: white;
-            --shadow-light: 0 6px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: var(--background-color);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-        }
-
-        h2 {
-            color: var(--text-color);
-            font-weight: 700;
-            margin-bottom: 25px;
-            letter-spacing: 0.5px;
-            text-align: center;
-        }
-
-        form {
-            background: var(--card-background);
-            padding: 30px;
-            border-radius: 15px; /* Bordes más suaves */
-            box-shadow: var(--shadow-light); /* Sombra más pronunciada */
-            width: 100%;
-            max-width: 350px; /* Ancho máximo definido */
-            box-sizing: border-box;
-        }
-
-        label {
-            display: block; /* Asegura que cada label esté en su propia línea */
-            font-weight: 600; /* Semi-bold */
-            color: var(--text-color);
-            margin-top: 15px;
-            margin-bottom: 5px;
-            font-size: 0.95em;
-        }
-
-        input {
-            width: 100%;
-            padding: 12px 15px; /* Más padding para que se vea más grande */
-            margin-bottom: 15px;
-            border: 1px solid #DCDCDC;
-            border-radius: 8px;
-            box-sizing: border-box; /* Incluir padding y borde en el ancho */
-            transition: border-color 0.3s;
-            font-size: 1em;
-            color: var(--text-color);
-        }
-
-        input:focus {
-            border-color: var(--primary-color); /* Resaltar al enfocar */
-            outline: none;
-        }
-
-        button {
-            width: 100%;
-            padding: 14px;
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1.1em;
-            font-weight: 600;
-            margin-top: 20px;
-            transition: background-color 0.3s, transform 0.1s;
-        }
-
-        button:hover {
-            background-color: var(--secondary-color);
-        }
-        
-        button:active {
-            transform: translateY(1px); /* Efecto de "clic" */
-        }
+        /* Usando Inter como fuente principal */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
     </style>
 </head>
-<body>
-    <h2>Simulador de Descuento 📊</h2>
-    <form method="post" action="/calcular">
-        <label for="calidad">Calidad (0–10):</label>
-        <input type="number" id="calidad" name="calidad" step="0.1" min="0" max="10" required placeholder="Ej: 7.5">
+<body class="min-h-screen flex items-center justify-center bg-bg-light p-4 font-sans">
 
-        <label for="stock">Stock (1–100):</label>
-        <input type="number" id="stock" name="stock" min="1" max="100" required placeholder="Ej: 50">
+    <div class="w-full max-w-md bg-white p-8 md:p-10 rounded-xl shadow-2xl">
+        <header class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-extrabold text-primary mb-2">
+                Proyección Fuzzy
+            </h1>
+            <p class="text-gray-600 text-sm">Calculadora de Éxito de Producto en el Mercado</p>
+        </header>
 
-        <label for="precio">Precio original (S/):</label>
-        <input type="number" id="precio" name="precio" step="0.01" min="0" required placeholder="Ej: 150.00">
+        <form method="post" action="/proyectar" class="space-y-6">
+            <!-- Campo de Atractivo (Antes Calidad) -->
+            <div>
+                <label for="atractivo" class="block text-sm font-medium text-gray-700 mb-1">
+                    1. Atractivo del Producto (0.0 – 10.0)
+                </label>
+                <input type="number" id="atractivo" name="atractivo" step="0.1" min="0" max="10" required 
+                       placeholder="Ej: 8.5 (Valoración de diseño y funcionalidad)"
+                       class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-primary focus:border-primary transition duration-150 ease-in-out">
+            </div>
 
-        <button type="submit">Calcular Descuento</button>
-    </form>
+            <!-- Campo de Disponibilidad (Antes Stock) -->
+            <div>
+                <label for="disponibilidad" class="block text-sm font-medium text-gray-700 mb-1">
+                    2. Capacidad de Suministro (1 – 100 unidades/periodo)
+                </label>
+                <input type="number" id="disponibilidad" name="disponibilidad" min="1" max="100" required 
+                       placeholder="Ej: 65 (Nivel de stock o capacidad de producción)"
+                       class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-primary focus:border-primary transition duration-150 ease-in-out">
+            </div>
+
+            <!-- Campo de Inversión (Antes Precio Original) -->
+            <div>
+                <label for="inversion" class="block text-sm font-medium text-gray-700 mb-1">
+                    3. Inversión Inicial (S/)
+                </label>
+                <input type="number" id="inversion" name="inversion" step="0.01" min="0" required 
+                       placeholder="Ej: 5000.00 (Inversión en marketing, producción, etc.)"
+                       class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-primary focus:border-primary transition duration-150 ease-in-out">
+            </div>
+
+            <button type="submit" 
+                    class="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-lg shadow-md text-base font-semibold text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition duration-150 ease-in-out transform hover:scale-[1.01]">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                </svg>
+                Generar Proyección
+            </button>
+        </form>
+    </div>
+
 </body>
 </html>
