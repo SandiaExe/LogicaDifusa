@@ -3,72 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulador de Descuento</title>
+    <title>Simulador de Descuento ✨</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            /* Definición de variables de color para fácil manejo */
+            --primary-color: #2ECC71; /* Un verde vibrante */
+            --secondary-color: #27AE60;
+            --background-color: #ECF0F1; /* Gris claro */
+            --text-color: #34495E; /* Azul oscuro para texto */
+            --card-background: white;
+            --shadow-light: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background: #f8f9fa;
+            font-family: 'Poppins', sans-serif;
+            background: var(--background-color);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
         }
 
         h2 {
-            color: #333;
+            color: var(--text-color);
+            font-weight: 700;
+            margin-bottom: 25px;
+            letter-spacing: 0.5px;
+            text-align: center;
         }
 
         form {
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            width: 300px;
+            background: var(--card-background);
+            padding: 30px;
+            border-radius: 15px; /* Bordes más suaves */
+            box-shadow: var(--shadow-light); /* Sombra más pronunciada */
+            width: 100%;
+            max-width: 350px; /* Ancho máximo definido */
+            box-sizing: border-box;
         }
 
         label {
-            font-weight: bold;
+            display: block; /* Asegura que cada label esté en su propia línea */
+            font-weight: 600; /* Semi-bold */
+            color: var(--text-color);
+            margin-top: 15px;
+            margin-bottom: 5px;
+            font-size: 0.95em;
         }
 
         input {
             width: 100%;
-            padding: 8px;
-            margin: 8px 0;
-            border: 1px solid #ccc;
-            border-radius: 6px;
+            padding: 12px 15px; /* Más padding para que se vea más grande */
+            margin-bottom: 15px;
+            border: 1px solid #DCDCDC;
+            border-radius: 8px;
+            box-sizing: border-box; /* Incluir padding y borde en el ancho */
+            transition: border-color 0.3s;
+            font-size: 1em;
+            color: var(--text-color);
+        }
+
+        input:focus {
+            border-color: var(--primary-color); /* Resaltar al enfocar */
+            outline: none;
         }
 
         button {
             width: 100%;
-            padding: 10px;
-            background-color: #007BFF;
+            padding: 14px;
+            background-color: var(--primary-color);
             color: white;
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 15px;
+            font-size: 1.1em;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: background-color 0.3s, transform 0.1s;
         }
 
-            button:hover {
-                background-color: #0056b3;
-            }
+        button:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        button:active {
+            transform: translateY(1px); /* Efecto de "clic" */
+        }
     </style>
 </head>
 <body>
-    <h2>Simulador de Descuento</h2>
+    <h2>Simulador de Descuento 📊</h2>
     <form method="post" action="/calcular">
-        <label>Calidad (0–10):</label><br>
-        <input type="number" name="calidad" step="0.1" min="0" max="10" required><br>
+        <label for="calidad">Calidad (0–10):</label>
+        <input type="number" id="calidad" name="calidad" step="0.1" min="0" max="10" required placeholder="Ej: 7.5">
 
-        <label>Stock (1–100):</label><br>
-        <input type="number" name="stock" min="1" max="100" required><br>
+        <label for="stock">Stock (1–100):</label>
+        <input type="number" id="stock" name="stock" min="1" max="100" required placeholder="Ej: 50">
 
-        <label>Precio original (S/):</label><br>
-        <input type="number" name="precio" step="0.01" min="0" required><br>
+        <label for="precio">Precio original (S/):</label>
+        <input type="number" id="precio" name="precio" step="0.01" min="0" required placeholder="Ej: 150.00">
 
-        <button type="submit">Calcular</button>
+        <button type="submit">Calcular Descuento</button>
     </form>
 </body>
 </html>
-
