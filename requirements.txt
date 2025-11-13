@@ -1,0 +1,8 @@
+flask
+gunicorn
+numpy
+scikit-fuzzy
+ipywidgets
+networkx
+scipy
+packaging
